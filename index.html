@@ -1,1 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Will You Be My Valentine?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<style>
+body{
+  margin:0;
+  font-family: 'Comic Sans MS', Arial;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb);
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.page{
+  background:white;
+  padding:20px;
+  border-radius:25px;
+  text-align:center;
+  width:90%;
+  max-width:420px;
+  box-shadow:0 15px 35px rgba(255,0,100,0.3);
+  position:relative;
+  z-index:5;
+}
+
+.hidden{display:none;}
+
+h1,h2{color:#e60073;}
+
+.photo{
+  width:100%;
+  border-radius:20px;
+  margin:15px 0;
+}
+
+.buttons{
+  position:relative;
+  height:70px;
+}
+
+button{
+  padding:12px 22px;
+  font-size:18px;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+}
+
+#yesBtn{background:#ff4d88;color:white;}
+#noBtn{
+  background:#ddd;
+  position:absolute;
+  right:0;
+}
+
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:24px;
+  animation:floatUp 6s linear infinite;
+  z-index:1;
+}
+
+@keyframes floatUp{
+  from{transform:translateY(0);opacity:1;}
+  to{transform:translateY(-100vh);opacity:0;}
+}
+
+.firework{
+  position:fixed;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  animation:explode 1s ease-out forwards;
+}
+
+@keyframes explode{
+  from{box-shadow:0 0 red,0 0 yellow,0 0 pink;}
+  to{
+    box-shadow:-60px -60px red,60px -60px yellow,0 80px pink;
+    opacity:0;
+  }
+}
+
+iframe{
+  width:100%;
+  height:200px;
+  border:none;
+  border-radius:15px;
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page" id="page1">
+  <h1>Shivani Chaurasia,<br>will you be my Valentine? 💖</h1>
+
+  <img src="taj-photo.jpg" class="photo">
+
+  <div class="buttons">
+    <button id="yesBtn">Yes 💕</button>
+    <button id="noBtn">No 😢</button>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page hidden" id="page2">
+  <h2>Yayyy!!! 💖</h2>
+  <p>I love you Shivani 💞</p>
+
+  <img src="taj-photo.jpg" class="photo">
+
+  <img src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif">
+
+  <iframe
+    src="https://www.youtube.com/embed/vI0T9M_rRXk?autoplay=1&loop=1&playlist=vI0T9M_rRXk"
+    allow="autoplay">
+  </iframe>
+
+  <p style="margin-top:10px;">— From Kalpesh 💌</p>
+</div>
+
+<script>
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
+const page1=document.getElementById("page1");
+const page2=document.getElementById("page2");
+let noCount=0;
+
+yesBtn.onclick=()=>{
+  page1.classList.add("hidden");
+  page2.classList.remove("hidden");
+  startHearts();
+  startFireworks();
+};
+
+noBtn.onmouseover=()=>{
+  if(noCount<3){
+    noCount++;
+    noBtn.style.left=Math.random()*200+"px";
+    noBtn.style.top=Math.random()*50+"px";
+  }
+};
+
+noBtn.onclick=()=>{
+  if(noCount>=3){
+    alert("😄 The correct answer is YES 💖");
+  }
+};
+
+function startHearts(){
+  setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerText="💖";
+    h.style.left=Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  },500);
+}
+
+function startFireworks(){
+  for(let i=0;i<15;i++){
+    setTimeout(()=>{
+      const f=document.createElement("div");
+      f.className="firework";
+      f.style.left=Math.random()*100+"vw";
+      f.style.top=Math.random()*100+"vh";
+      document.body.appendChild(f);
+      setTimeout(()=>f.remove(),1000);
+    },i*200);
+  }
+}
+</script>
+
+</body>
+</html>
